@@ -31,4 +31,8 @@ Will try to `REASSIGN` everything owned by the dynamically created role by Vault
 
 The here is the series of the commands to simulate failure : `docker-compose exec vault /vault/provision/request_creds.sh && docker-compose exec postgre psql -c 'DROP ROLE "bnpp-apps-base"'`
 
-- In the docker-compose logs you can see that Vault container reports failure upon revocation of the dynamically created credentials.
+- In the docker-compose logs you can see that Vault container reports failure upon revocation of the dynamically created credentials :
+
+```
+vault_1    | 2020-08-13T07:33:02.613Z [ERROR] expiration: failed to revoke lease: lease_id=database/creds/dba/l5eg2EyWGdjZ23DsakS9wnOg error="failed to revoke entry: resp: (*logical.Response)(nil) err: pq: role "bnpp-apps-base" does not exist"
+```
