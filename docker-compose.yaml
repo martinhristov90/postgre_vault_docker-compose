@@ -1,0 +1,18 @@
+version: '3'
+services:
+  vault:
+    image: "vault:latest"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+      #VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h"}'
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault_container/:/vault/provision/
+    depends_on:
+      - postgre
+  postgre:
+    image: "postgres"
+    environment:
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_USER: root
